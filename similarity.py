@@ -1,4 +1,5 @@
 import numpy as np
+
 class Similarity:
     def __init__(self):
         self.mat = np.zeros((0,0), dtype=np.int32)
@@ -19,6 +20,23 @@ class Similarity:
             self.categories.add(c)
             self.cat2ind[c] = matSize
             self.ind2cat[matSize] = c
+
+    def removeCategory(self, c):
+        if not c in self.categories:
+            print("Category not found")
+        else:
+            index = self.cat2ind[c]
+            self.mat = np.delete(self.mat, [index], axis=0)
+            self.mat = np.delete(self.mat, [index], axis=1)
+            # adjust all large indices
+            del self.cat2ind[c]
+            for i in self.cat2ind:
+                if self.cat2ind[i] >= index:
+                    self.cat2ind[i] -= 1
+            self.ind2cat.clear()
+            for i in self.cat2ind:
+                self.ind2cat[self.cat2ind[i]] = i
+            self.categories.remove(c)
 
     def addSimilar(self, n1, n2):
         # are the categories new?
