@@ -68,8 +68,11 @@ class CategoryTree:
     def getCategoryByName(self, name):
         return self.myhash[name]
 
-    def updateCategory(self, category):
-        if not category.name in self.myhash:
-            print("This category does not exist")
+    def updateCategory(self, old, new):
+        if not old.name in self.myhash:
+            print("Old category does not exist")
         else:
-            self.myhash[category.name] = category
+            del self.myhash[old.name]
+            old.update(new)
+            self.myhash[old.name] = old # new values
+            

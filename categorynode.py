@@ -9,3 +9,7 @@ class CategoryNode:
             self.image = image
         self.children = []
         self.parent = None
+    def update(self, new):
+        self.name = new.name
+        self.description = new.description
+        self.image = new.image
