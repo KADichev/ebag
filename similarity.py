@@ -99,3 +99,26 @@ class Similarity:
                 steps += 1
         return steps, cat_list
 
+    def getRabbitHoleBeta(self, entry):
+        unvisited = set()
+        visited = set()
+        visited.add(entry)
+        for j in self.categories:
+            if j != entry:
+                unvisited.add(j)
+        tmp = set()
+        changing = True
+        steps = 0
+        while changing:
+            changing = False
+            visited = visited.union(tmp)
+            unvisited = unvisited.difference(tmp)
+            for j in unvisited:
+                for k in visited:
+                    # symmetric, either [k][j] or [j][k]
+                    if self.mat[self.cat2ind[k]][self.cat2ind[j]]:
+                        tmp.add(j)
+                        changing = True
+                        steps += 1
+        return steps, visited
+

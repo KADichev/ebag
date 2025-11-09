@@ -25,9 +25,6 @@ tree.addCategoryBelowParent(orange, white)
 tree.addCategoryBelowParent(yellow, white)
 tree.addCategoryBelowParent(black, white)
 
-green.description = "Newly added description of colour green, it is the nicest colour"
-tree.updateCategory(green)
-
 
 allColors = tree.getAllCategories()
 sim = Similarity()
@@ -45,6 +42,7 @@ def printRabbitInfo(sim):
     tupleList = []
     for i in sim.categories:
         if not i in processed_cats:
+            #steps, cats = sim.getRabbitHoleBeta(i)
             steps, cats = sim.getRabbitHole(i)
             tupleList.append((steps,cats))
             processed_cats |= set(cats)
